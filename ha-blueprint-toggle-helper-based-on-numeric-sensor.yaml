@@ -20,8 +20,8 @@ blueprint:
       description: The lowest value to turn the helper on
       selector:
         number:
-		  min: -1000000
-		  max: 1000000
+          min: -1000000
+          max: 1000000
           mode: box
       default: 0
 variables:
