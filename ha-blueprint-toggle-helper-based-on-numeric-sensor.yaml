@@ -1,0 +1,48 @@
+blueprint:
+  name: Toggle helper based on a numeric sensor
+  description: Use a boolean helper to indicate a sensor value over a certain threshold
+  domain: automation
+  input:
+    sensor:
+      name: Consumption
+      description: This sensor's value will control the boolean helper
+      selector:
+        entity:
+          domain: sensor
+    target_helper:
+      name: Boolen helper
+      description: The helper to switch on or off
+      selector:
+        entity:
+          domain: input_boolean
+    value_min:
+      name: Threshold
+      description: The lowest value to turn the helper on
+      selector:
+        number:
+          mode: box
+      default: 0
+variables:
+  sensor: !input sensor
+  target_helper: !input target_helper
+  value_min: !input value_min
+trigger:
+  - platform: state
+    entity_id: !input sensor
+action:
+  - variables:
+      value: '{{ states(sensor) | float }}'
+      threshold: '{{ value_min }}'
+  - choose:
+    - conditions: >
+        {{ value < threshold }}
+      sequence:
+        - service: input_boolean.turn_of
+          target:
+            entity_id: !input target_helper
+    - conditions: >
+        {{ value >= threshold }}
+      sequence:
+        - service: input_boolean.turn_on
+          target:
+            entity_id: !input target_helper
