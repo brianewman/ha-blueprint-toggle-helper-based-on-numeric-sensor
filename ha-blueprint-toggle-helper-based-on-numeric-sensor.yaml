@@ -15,7 +15,7 @@ blueprint:
       selector:
         entity:
           domain: input_boolean
-    value_min:
+    threshold:
       name: Threshold
       description: The lowest value to turn the helper on
       selector:
@@ -25,14 +25,14 @@ blueprint:
 variables:
   sensor: !input sensor
   target_helper: !input target_helper
-  value_min: !input value_min
+  threshold: !input threshold
 trigger:
   - platform: state
     entity_id: !input sensor
 action:
   - variables:
       value: '{{ states(sensor) | float }}'
-      threshold: '{{ value_min }}'
+      threshold: '{{ threshold }}'
   - choose:
     - conditions: >
         {{ value < threshold }}
