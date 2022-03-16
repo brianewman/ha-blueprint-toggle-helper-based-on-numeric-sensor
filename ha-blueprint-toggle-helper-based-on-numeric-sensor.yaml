@@ -39,7 +39,7 @@ action:
     - conditions: >
         {{ value < threshold }}
       sequence:
-        - service: input_boolean.turn_of
+        - service: input_boolean.turn_off
           target:
             entity_id: !input target_helper
     - conditions: >
