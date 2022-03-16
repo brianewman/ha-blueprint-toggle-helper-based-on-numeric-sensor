@@ -4,14 +4,14 @@ blueprint:
   domain: automation
   input:
     sensor:
-      name: Consumption
+      name: Numeric Sensor
       description: This sensor's value will control the boolean helper
       selector:
         entity:
           domain: sensor
     target_helper:
       name: Boolen helper
-      description: The helper to switch on or off
+      description: The "toggle" helper to switch on or off
       selector:
         entity:
           domain: input_boolean
